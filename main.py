@@ -10,14 +10,6 @@ from faker import Faker
 from conf import MODEL
 
 
-# def counter(*args):
-#     pk = args[0]
-#     yield pk
-#     if ______:
-#         pk += 1
-#         yield pk
-
-
 def title() -> str:
     """
     Эта функция возвращает название книги из файла books.txt
@@ -26,8 +18,8 @@ def title() -> str:
 
     file = "books.txt"
     with open(file, "r", encoding="UTF-8") as f:
-        for i in f:
-            return i.rstrip()
+        d = random.randint(0, 4)
+        return f[d].rstrip()
 
 
 def year_func(first_year: int = 1450, second_year: int = 2021) -> int:
@@ -41,7 +33,7 @@ def year_func(first_year: int = 1450, second_year: int = 2021) -> int:
     return random.randrange(first_year, second_year)
 
 
-def page_func():
+def page_func() -> int:
     """
     Эта функция возвращает количество страниц
     :return:
@@ -70,7 +62,7 @@ def author_func() -> list[str]:
     return [fake.name() for _ in range(random_number)]
 
 
-def gen(pk: int = 1):
+def gen(pk: int=1) -> dict:
     while True:
         yield {
             "model": MODEL,
@@ -87,13 +79,11 @@ def gen(pk: int = 1):
         }
         pk += 1
 
-
 def main():
-    # counts = counter(1)
     book_gen = gen(1)
     list_ = [next(book_gen) for _ in range(10)]
     print(list_)
-    output_file = "output.txt"
+    output_file = "output_3.txt"
     with open(output_file, "w", encoding='utf-8') as f:
         json.dump(list_, f, ensure_ascii=False, indent=4)
 
